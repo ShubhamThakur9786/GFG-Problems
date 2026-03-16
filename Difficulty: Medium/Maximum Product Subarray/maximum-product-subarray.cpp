@@ -2,24 +2,16 @@ class Solution {
   public:
     int maxProduct(vector<int> &arr) {
         // code here
-        int n = arr.size();
-        int pre = 1;
-        int suff = 1;
-        int maxi = INT_MIN;
+        int currMax = arr[0];
+        int currMin = arr[0];
+        int maxProd = arr[0];
         
-        for(int i=0; i<arr.size(); i++) {
-            if(pre == 0) {
-                pre = 1;
-            }
-            if(suff == 0) {
-                suff = 1;
-            }
-            
-            pre = pre*arr[i];
-            suff = suff*arr[n-i-1];
-            maxi = max(maxi, max(pre, suff));
+        for(int i=1; i<arr.size(); i++) {
+            int temp = max({arr[i], arr[i]*currMax, arr[i]*currMin});
+            currMin = min({arr[i], arr[i]*currMax, arr[i]*currMin});
+            currMax = temp;
+            maxProd = max(maxProd, currMax);
         }
-        
-        return maxi;
+        return maxProd;
     }
 };

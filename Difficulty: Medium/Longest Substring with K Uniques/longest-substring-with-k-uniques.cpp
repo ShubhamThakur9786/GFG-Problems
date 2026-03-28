@@ -24,9 +24,6 @@ class Solution {
                     if(mp[s[i]] == 0) mp.erase(s[i]);
                     i++;
                 }
-                if(mp.size() == k) {
-                   ans = max(ans, j-i+1);
-                }
                 j++;
             }
         }

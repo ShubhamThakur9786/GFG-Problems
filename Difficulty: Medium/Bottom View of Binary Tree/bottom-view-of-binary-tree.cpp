@@ -1,13 +1,14 @@
 /*
+Definition for Node
 class Node {
 public:
     int data;
     Node* left;
     Node* right;
 
-    Node(int x) {
-        data = x;
-        left = right = NULL;
+    Node(int val) {
+        data = val;
+        left = right = nullptr;
     }
 };
 */
@@ -19,20 +20,20 @@ class Solution {
         vector<int> ans;
         if(!root) return ans;
         
-        map<int, int> mp;
-        queue<pair<Node*, int>> q;
+        queue<pair<Node*, int>> q; //node, level
         q.push({root, 0});
+        map<int, int> mp; //level, nodevalue
         
         while(!q.empty()) {
             auto temp = q.front();
-            q.pop();
             Node* node = temp.first;
-            int idx = temp.second;
+            int level = temp.second;
+            q.pop();
             
-            mp[idx] = node->data;
+            mp[level] = node->data;
             
-            if(node->left) q.push({node->left, idx-1});
-            if(node->right) q.push({node->right, idx+1});
+            if(node->left) q.push({node->left, level-1});
+            if(node->right) q.push({node->right, level+1});
         }
         
         for(auto i : mp) {
@@ -41,19 +42,3 @@ class Solution {
         return ans;
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

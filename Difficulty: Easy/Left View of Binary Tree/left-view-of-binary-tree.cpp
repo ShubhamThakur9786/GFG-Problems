@@ -15,26 +15,21 @@ public:
 
 class Solution {
   public:
+    void solve(Node* root, vector<int> &ans, int level) {
+        if(!root) return;
+        if(level == ans.size()) {
+            ans.push_back(root->data);
+        }
+        
+        solve(root->left, ans, level+1);
+        solve(root->right, ans, level+1);
+    }
     vector<int> leftView(Node *root) {
         // code here
-        queue<Node*> q;
         vector<int> ans;
         if(!root) return ans;
-        q.push(root);
-        
-        while(!q.empty()) {
-            int size = q.size();
-            
-            vector<int> arr;
-            for(int i=0; i<size; i++) {
-                Node* temp = q.front();
-                q.pop();
-                arr.push_back(temp->data);
-                if(temp->left) q.push(temp->left);
-                if(temp->right) q.push(temp->right);
-            }
-            ans.push_back(arr[0]);
-        }
+        int level = 0;
+        solve(root, ans, level);
         return ans;
     }
 };
